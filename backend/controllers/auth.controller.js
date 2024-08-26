@@ -74,6 +74,7 @@ const signup = async (req, res) => {
             .json({ error: "Internal Server Error" })
     }
 }
+
 const login = async (req, res) => {
     try {
         const { username, password } = req.body
@@ -113,6 +114,7 @@ const login = async (req, res) => {
             .json({ error: "Internal Server Error" });
     }
 }
+
 const logout = async (req, res) => {
     try {
         res.cookie("jwt", "", { maxAge: 0 });   //(name, value, option => remove the cookie immediately) 
@@ -129,7 +131,10 @@ const logout = async (req, res) => {
 
 const getMe = async (req, res) => {
     try {
-        const user = await User.findById(req.user._id)
+        const user = await User.findById(req.user._id).select("-password")
+        return res
+            .status(200)
+            .json(user);
     } catch (error) {
         console.error("Error in getMe:", error.message);
         return res
