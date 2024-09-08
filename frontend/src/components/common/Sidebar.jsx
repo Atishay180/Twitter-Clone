@@ -3,16 +3,16 @@ import XSvg from "../svgs/X";
 import { MdHomeFilled } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { BiLogOut } from "react-icons/bi";
 
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 
 const Sidebar = () => {
 	const queryClient = useQueryClient();
 
-	const {mutate: logoutMutate} = useMutation({
+	const { mutate: logoutMutate } = useMutation({
 		mutationFn: async () => {
 			try {
 				const res = await fetch("/api/auth/logout", {
@@ -20,7 +20,7 @@ const Sidebar = () => {
 				})
 				const data = await res.json();
 
-				if(!res.ok) {
+				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong!")
 				}
 			} catch (error) {
@@ -29,7 +29,7 @@ const Sidebar = () => {
 		},
 		onSuccess: () => {
 			//refetch the authUser query to update the UI
-			queryClient.invalidateQueries({queryKey: ['authUser']})
+			queryClient.invalidateQueries({ queryKey: ['authUser'] })
 		},
 		onError: () => {
 			toast.error("Failed to logout")
@@ -37,7 +37,7 @@ const Sidebar = () => {
 	})
 
 	//get the authUser from the query
-	const {data: authUser} = useQuery({queryKey: ['authUser']});
+	const { data: authUser } = useQuery({ queryKey: ['authUser'] });
 
 	return (
 		<div className='md:flex-[2_2_0] w-18 max-w-52'>

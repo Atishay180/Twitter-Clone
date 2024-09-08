@@ -11,7 +11,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { IoCalendarOutline } from "react-icons/io5";
 import { FaLink } from "react-icons/fa";
 import { MdEdit } from "react-icons/md";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { formatMemberSinceDate } from "../../utils/date";
 
 import useFollow from "../../hooks/usefollow";
@@ -28,7 +28,6 @@ const ProfilePage = () => {
     const { username } = useParams();
 
     const { follow, isPending } = useFollow();
-    const queryClient = useQueryClient();
     const { data: authUser } = useQuery({ queryKey: ["authUser"], });
 
     const { data: user, isLoading, refetch, isRefetching } = useQuery({
@@ -179,7 +178,7 @@ const ProfilePage = () => {
                                                     rel='noreferrer'
                                                     className='text-sm text-blue-500 hover:underline'
                                                 >
-                                                    youtube.com/@asaprogrammer_
+                                                    {user.link}
                                                 </a>
                                             </>
                                         </div>
