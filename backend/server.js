@@ -10,9 +10,7 @@ import userRoutes from "./routes/user.routes.js"
 import postRoutes from "./routes/post.routes.js"
 import notificationRoutes from "./routes/notification.routes.js"
 
-dotenv.config({
-    path: `./backend/.env`
-})
+dotenv.config()
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
